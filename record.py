@@ -4,9 +4,9 @@ import sys
 f = open('/dev/input/event0', 'rb')
 t = time.time()
 
-BUTTON = 4
-DPAD = 3
-START_BUTTON = 27
+BUTTON = 0x04
+DPAD = 0x03
+START_BUTTON = 0x27
 
 while True:
     timestamp = f.read(8)
@@ -18,7 +18,7 @@ while True:
         rest = f.read(16)
     elif kind == BUTTON:
         rest = f.read(32)
-        button = int(rest[10].encode('hex'))
+        button = rest[10]
 
         if button == START_BUTTON:
             sys.stderr.write('recording stopped\n')
